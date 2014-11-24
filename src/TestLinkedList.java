@@ -23,9 +23,9 @@ public class TestLinkedList {
 
         //Checking that my get methods work
         System.out.println("The size of the list should be 16 and is: " + linkedList.size());
-        System.out.println("The firstNode item should be 1 and is: " + linkedList.getFirst().toString());
+        System.out.println("The firstNode item should be 1 and is: " + linkedList.getFirst().getTime());
         System.out.println("The middle item should be 8 and is: " + linkedList.get(7).toString());
-        System.out.println("The lastNode item should be 16 and is: " + linkedList.getLast().toString());
+        System.out.println("The lastNode item should be 16 and is: " + linkedList.getLast().getTime());
 
 
         //Print out my list
