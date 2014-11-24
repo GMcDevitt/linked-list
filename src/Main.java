@@ -8,16 +8,11 @@ public class Main {
     public static void main(String[] args) {
 
         //The time of the previous pass in the simulation.
-        int previousClock = 0;
-        //The longest line length, wait time and service time
+        int previousClock;
+        //The longest line length, server idle time and service time
         int lineLength = 0;
-        int waitTime = 0;
+        int idleTime = 0;
         int longestService = 0;
-        //The shortest service time and the average service time
-        int shortestService = 0;
-        int averageService = 0;
-        //Array of all the service times in the simulation (used to calculate the average service time)
-        int[] serviceTimes = new int[100];
 
 
         //List used to hold the 100 events;
@@ -124,9 +119,6 @@ public class Main {
                     if(longestService < nextFromEventList.getTime() - previousClock) {
                         longestService = nextFromEventList.getTime() - previousClock;
                     }
-
-                    serviceTimes[i] = nextFromEventList.getTime() - previousClock;
-                    i++;
                 }
             }
             //Getting the statistics about the simulation
@@ -134,17 +126,19 @@ public class Main {
             if(lineLength < serviceQueue.size()) {
                 lineLength = serviceQueue.size();
             }
+
+            //Calculate the idle time of the server
+            //If the server does not have an event that means it was idle
+            if(!server.hasEvent()) {
+                //Add the time of this cycle to the cumulative idle time
+                idleTime = idleTime + (clock - previousClock);
+            }
         }
 
 
-        System.out.printf("The longest the line got was %s", lineLength);
-        System.out.printf("The longest service time was %s", longestService);
-        int average = 0;
-        //Calculate the average service time
-        for (i = 0; i < 100; i++) {
-            average = + serviceTimes[i];
-        }
-        System.out.printf("The average service time was %s", average/100);
-
+        //Report the statistics
+        System.out.printf("The longest the line got was %s customers. \n", lineLength);
+        System.out.printf("The longest service time was %s minutes. \n", longestService);
+        System.out.printf("The server was idle for %s minutes. \n", idleTime);
     }
 }
